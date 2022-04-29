@@ -23,7 +23,7 @@ const shoeExample = {
 };
 
 const server = setupServer(
-  rest.get('https://api.thecatapi.com/v1/images/', (req, res, ctx) =>
+  rest.get('https://api.thecatapi.com/v1/images/search', (req, res, ctx) =>
     res(ctx.json([sinkExample, shoeExample]))
   )
 );
@@ -36,6 +36,8 @@ describe('App', () => {
   it('Should render list of cat pics', async () => {
     render(<App />);
     const title = await screen.findByText(/the cat pic compendium/i);
+    const imageList = await screen.findAllByAltText(/cat image/i);
     expect(title).toBeInTheDocument();
+    expect(imageList.length).toEqual(2);
   });
 });
