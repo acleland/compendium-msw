@@ -6,6 +6,7 @@ export default function App() {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [filtered, setFiltered] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getCatPics = async () => {
@@ -23,6 +24,7 @@ export default function App() {
       setCategories(['all', ...Array.from(catSet)]);
     };
     getCatPics();
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -44,6 +46,11 @@ export default function App() {
   const handleSelect = (e) => {
     setSelectedCategory(e.target.value);
   };
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <>
       <h1>The Cat Pic Compendium</h1>
