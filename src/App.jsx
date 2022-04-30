@@ -56,13 +56,13 @@ export default function App() {
       <h1>The Cat Pic Compendium</h1>
       <div className={'controls-container'}>
         <select
-          name={'type-select'}
-          id="type-select"
+          name={'category-select'}
+          id="category-select"
           value={selectedCategory}
           onChange={handleSelect}
         >
           {categories.map((category) => (
-            <option key={category} value={category}>
+            <option key={category} name={category} value={category}>
               {category}
             </option>
           ))}

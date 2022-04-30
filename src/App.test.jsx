@@ -1,4 +1,4 @@
-import { screen, render } from '@testing-library/react';
+import { screen, render, userEvent } from '@testing-library/react';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 
@@ -41,3 +41,30 @@ describe('App', () => {
     expect(imageList.length).toEqual(2);
   });
 });
+
+// describe('Select', () => {
+//   it('Selecting a category should show the correct cat images', async () => {
+//     render(<App />);
+//     userEvent.selectOptions(
+//       await screen.findByRole('combobox'), // why does react testing library call it "combobox"?
+//       await screen.findByRole('option', { name: 'sink' })
+//     );
+//   });
+// });
+
+it('dropdown menu shown on page with correct options', async () => {
+  render(<App />);
+  await screen.findByRole('option', { name: 'all' });
+  screen.getByRole('option', { name: 'sinks' });
+});
+
+// it('should allow user to change category', () => {
+//   render(<App />);
+//   userEvent.selectOptions(
+//     // Find the select element
+//     screen.getByRole('combobox'),
+//     // Find and select the Ireland option
+//     screen.getByRole('option', { name: 'all' })
+//   );
+//   expect(screen.getByRole('option', { name: 'all' }).selected).toBe(true);
+// });
