@@ -22,9 +22,9 @@ export default function App() {
         }
       }
       setCategories(['all', ...Array.from(catSet)]);
+      setLoading(false);
     };
     getCatPics();
-    setLoading(false);
   }, []);
 
   useEffect(() => {

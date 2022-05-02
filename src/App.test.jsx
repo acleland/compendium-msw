@@ -1,5 +1,5 @@
-import { screen, render, userEvent, findByRole } from '@testing-library/react';
-// import { userEvent } from '@testing-library/user-event';
+import { screen, render, findByRole } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 
@@ -36,6 +36,7 @@ afterAll(() => server.close());
 describe('App', () => {
   it('Should render list of cat pics', async () => {
     render(<App />);
+    const loading = screen.getByText(/loading/i);
     const title = await screen.findByText(/the cat pic compendium/i);
     const imageList = await screen.findAllByAltText(/cat image/i);
     expect(title).toBeInTheDocument();
@@ -52,17 +53,17 @@ it('dropdown menu shown on page with correct options', async () => {
 
 // Test I wrote to test drop down behavior: currently doesn't work when run because userEvent is undefined.
 
-// it('should allow user to change category', async () => {
-//   render(<App />);
+it('should allow user to change category', async () => {
+  render(<App />);
 
-//   const dropdown = await screen.findByRole('combobox');
-//   const sinks = await screen.findByRole('option', { name: 'sinks' });
-//   console.log('userEvent', userEvent);
-//   userEvent.selectOptions(
-//     // find the select element
-//     dropdown,
-//     // Find and select the 'sinks' option
-//     sinks
-//   );
-//   expect(sinks.selected).toBe(true);
-// });
+  const dropdown = await screen.findByRole('combobox');
+  const sinks = await screen.findByRole('option', { name: 'sinks' });
+  console.log('userEvent', userEvent);
+  userEvent.selectOptions(
+    // find the select element
+    dropdown,
+    // Find and select the 'sinks' option
+    sinks
+  );
+  expect(sinks.selected).toBe(true);
+});
